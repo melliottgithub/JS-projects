@@ -63,3 +63,6 @@ h2 {
     padding: 10px;
     margin-top: 20px;
     width: 100%; }
+    .form button:hover {
+      background-color: #1d6fa5;
+      border: 2px solid #1d6fa5; }

@@ -3,6 +3,7 @@
 $gray: #777;
 $error: #e74c3c;
 $success: #2ecc71;
+$button-color: #3498db;
 
 * {
   box-sizing: border-box;
@@ -69,8 +70,8 @@ h2 {
   }
   button {
     cursor: pointer;
-    background-color: #3498db;
-    border: 2px solid #3498db;
+    background-color: $button-color;
+    border: 2px solid $button-color;
     border-radius: 4px;
     color: #fff;
     display: block;
@@ -78,5 +79,9 @@ h2 {
     padding: 10px;
     margin-top: 20px;
     width: 100%;
+     &:hover{
+    background-color: darken($button-color, $amount: 15%);
+    border: 2px solid darken($button-color, $amount: 15%);
+  }
   }
 }

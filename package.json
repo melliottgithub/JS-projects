@@ -5,14 +5,13 @@
   "main": "index.js",
   "dependencies": {
     "node": "^14.8.0",
-    "node-sass": "^4.14.1",
-    "nodemon": "^2.0.4"
+    "node-sass": "^4.14.1"
   },
   "devDependencies": {},
   "scripts": {
-    "start": "nodemon 3-Movie-Seat/script.js",
+    "start": "",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "node-sass --watch 3-Movie-Seat/scss -o 3-Movie-Seat/css"
+    "scss": "node-sass --watch 2-Custom-Video-Player/scss -o 2-Custom-Video-Player/css"
   },
   "repository": {
     "type": "git",

@@ -11,7 +11,7 @@
   "scripts": {
     "start": "",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "node-sass --watch 2-Custom-Video-Player/scss -o 2-Custom-Video-Player/css"
+    "scss": "node-sass --watch 5-DOM-Array-Methods/scss -o 5-DOM-Array-Methods/css"
   },
   "repository": {
     "type": "git",

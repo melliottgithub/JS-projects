@@ -11,7 +11,7 @@
   "scripts": {
     "start": "",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "node-sass --watch 5-DOM-Array-Methods/scss -o 5-DOM-Array-Methods/css"
+    "scss": "node-sass --watch 6-Menu-Slider-Modal/scss -o 6-Menu-Slider-Modal/css"
   },
   "repository": {
     "type": "git",

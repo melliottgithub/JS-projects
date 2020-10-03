@@ -11,7 +11,7 @@
   "scripts": {
     "start": "",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "node-sass --watch 8-Meal-Finder/scss -o 8-Meal-Finder/css"
+    "scss": "node-sass --watch 9-expense-tracker/scss -o 9-expense-tracker/css"
   },
   "repository": {
     "type": "git",

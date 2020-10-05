@@ -11,7 +11,7 @@
   "scripts": {
     "start": "",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "scss": "node-sass --watch 9-expense-tracker/scss -o 9-expense-tracker/css"
+    "scss": "node-sass --watch 10-Music-Player/scss -o 10-Music-Player/css"
   },
   "repository": {
     "type": "git",

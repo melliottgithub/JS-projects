@@ -57,6 +57,44 @@ function showData(data) {
               .join("")}
         </ul>
     `;
+
+  if (data.prev || data.next) {
+    more.innerHTML = ` 
+        ${
+          data.prev
+            ? `<button class="btn" onclick="getMoreSongs('${data.prev}')">Prev</button>`
+            : ""
+        }
+        ${
+          data.next
+            ? `<button class="btn" onclick="getMoreSongs('${data.next}')">Next</button>`
+            : ""
+        }
+    `;
+  } else {
+    more.innerHTML = "";
+  }
+}
+
+//get more results
+async function getMoreSongs(url) {
+  const res = await fetch(`https://cors-anywhere.herokuapp.com/${url}`);
+  const data = await res.json();
+
+  showData(data);
+}
+
+//get lyrics
+async function getLyrics(artist, songTitle) {
+  const res = await fetch(`${APIURL}/v1/${artist}/${songTitle}`);
+  const data = await res.json();
+
+  const lyrics = data.lyrics.replace(/(\r\n|\r|\n)/g, "<br>");
+
+  result.innerHTML = `
+        <h2><strong>${artist}</strong> - ${songTitle}</h2>
+        <span>${lyrics}</span>
+    `;
 }
 
 //event listeners
@@ -78,6 +116,9 @@ result.addEventListener("click", (e) => {
   const clickEl = e.target;
 
   if (clickEl.tagName === "BUTTON") {
-    console.log("hi");
+    const artist = clickEl.getAttribute("data-artist");
+    const songTitle = clickEl.getAttribute("data-songtitle");
+    console.log(artist, songTitle);
+    getLyrics(artist, songTitle);
   }
 });

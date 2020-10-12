@@ -40,7 +40,8 @@ h1 {
   }
 }
 .countdown {
-  display: flex;
+  //display: flex;
+  display: none;
   transform: scale(2);
 }
 .time {
@@ -62,4 +63,13 @@ h1 {
       margin: 0;
     }
   }
+}
+.year{
+    font-size: 200px;
+    z-index: -1;
+    opacity: .2;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
 }

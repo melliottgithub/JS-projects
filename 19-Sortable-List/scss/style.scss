@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+//root
+$border-color: #e3e5e4;
+$bg-color: #c3c7ca;
+$txt-color: #34444f;
+
+* {
+  box-sizing: border-box;
+}
+body {
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  margin: 0;
+  font-family: "Lato", sans-serif;
+}
+
+.draggable-list {
+  border: 1px solid $border-color;
+  color: $txt-color;
+  padding: 0;
+  list-style-type: none;
+  li {
+    background-color: #fff;
+    display: flex;
+    flex: 1;
+    &:not(:last-of-type) {
+      border-bottom: 1px solid $border-color;
+    }
+    &.right .person-name {
+      color: green;
+    }
+    &.wrong .person-name {
+      color: red;
+    }
+    &.over {
+      background-color: #eaeaea;
+    }
+  }
+  .number {
+    background-color: $bg-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    height: 60px;
+    width: 60px;
+  }
+  .person-name {
+    margin: 0 20px 0 0;
+  }
+}
+.draggable {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  flex: 1;
+}
+.check-btn {
+  background-color: $bg-color;
+  border: none;
+  color: $txt-color;
+  font-size: 16px;
+  padding: 10px 20px;
+  cursor: pointer;
+  &:active {
+    transform: scale(0.98);
+  }
+  &:focus {
+    outline: none;
+  }
+}

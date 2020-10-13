@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap");
-
 html {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 body {
@@ -14,40 +14,58 @@ body {
   font-family: Montserrat, sans-serif;
   font-weight: 700;
   text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
+
 .quote-container {
   width: auto;
   max-width: 900px;
   padding: 20px 30px;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 10px 10px 10px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 10px 10px 10px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 10px 10px 10px rgba(0, 0, 0, 0.2);
 }
+
 .quote-text {
   font-size: 2.75rem;
 }
+
 .long-quote {
   font-size: 2rem;
 }
+
 .fa-quote-left {
   font-size: 4rem;
 }
+
 .quote-author {
   font-weight: 400;
   margin-top: 15px;
   font-size: 2rem;
   font-style: italic;
 }
-.button-container{
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-between;
+
+.button-container {
+  margin-top: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
-button{
-    cursor: pointer;
+
+button {
+  cursor: pointer;
 }
 
 /* Media Query: tablet or smaller */

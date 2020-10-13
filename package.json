@@ -8,7 +8,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "",
+    "start": "node /1-Form-Validator/script.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "scss": "node-sass --watch 10-Music-Player/scss -o 10-Music-Player/css"
   },

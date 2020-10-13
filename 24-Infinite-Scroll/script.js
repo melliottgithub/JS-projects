@@ -10,7 +10,7 @@ let picArray = [];
 /* Unplash API */
 
 //initial value for slower devices = 5
-const count = 5;
+let count = 5;
 const apiKey = "rUjizCC9PiosuydZwnLXsyvJ-jJY4EvzAo-zv6dARuk";
 const apiURL = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 

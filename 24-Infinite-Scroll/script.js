@@ -67,7 +67,7 @@ function displayPhotos() {
 //get photos from api
 async function getPhotos() {
   try {
-    const response = await fetch(apiUR);
+    const response = await fetch(apiURL);
     picArray = await response.json();
     displayPhotos();
   } catch (error) {}

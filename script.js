@@ -101,7 +101,9 @@ function createBox(item) {
     <div class="card__content">
         <p class="card__title text--medium">
             ${text}
-            <a href=""><i class="fab fa-github"></i></a>
+            <a href="https://github.com/melliottgithub/JS-projects/tree/master/${text}" target="_blank">
+              <i class="fab fa-github"></i>
+            </a>
         </p>
     </div>
         

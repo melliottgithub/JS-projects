@@ -5,13 +5,23 @@
 }
 
 body {
-  background-color: #303032;
+  background-color: #F7DF1E
+
+;
 }
 main {
   display: grid;
   grid-template-columns: 1fr repeat(12, minmax(auto, 60px)) 1fr;
   gap: 40px;
   padding: 60px 0;
+}
+h1{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  z-index: 10;
+  //color: #fff;
 }
 .text--medium {
   font-family: "Open sans", sans-serif;
@@ -51,7 +61,7 @@ main {
     }
   }
   &__content {
-    padding: 20px;
+    padding: 10px;
     display: flex;
     justify-content: center;
   }
@@ -66,9 +76,7 @@ main {
     &:hover {
       transform: scale(1.5);
     }
-    // &:active,&:link,&:visited{
-    //   color: #fff;
-    // }
+    
   }
 }
 @media only screen and(max-width:1000px) {

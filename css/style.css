@@ -1,0 +1,141 @@
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #303032;
+}
+
+main {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr (minmax(auto, 60px))[12] 1fr;
+      grid-template-columns: 1fr repeat(12, minmax(auto, 60px)) 1fr;
+  gap: 40px;
+  padding: 60px 0;
+}
+
+.text--medium {
+  font-family: "Open sans", sans-serif;
+  font-synthesis: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #ecf0f1;
+}
+
+.cards {
+  -ms-grid-column: 2;
+  -ms-grid-column-span: 12;
+  grid-column: 2 / span 12;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: (minmax(auto, 60px))[12];
+      grid-template-columns: repeat(12, minmax(auto, 60px));
+  gap: 40px;
+}
+
+.card {
+  -ms-grid-column-span: 4;
+      grid-column-end: span 4;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #39393b;
+  -webkit-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+.card__image--container {
+  width: 100%;
+  padding-top: 56.25%;
+  overflow: hidden;
+  position: relative;
+  -webkit-transition: -webkit-transform .5s ease;
+  transition: -webkit-transform .5s ease;
+  transition: transform .5s ease;
+  transition: transform .5s ease, -webkit-transform .5s ease;
+}
+
+.card__image--container img {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.card__image--container:hover {
+  -webkit-transform: translateY(-5px);
+          transform: translateY(-5px);
+}
+
+.card__content {
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card__title {
+  margin-bottom: 20px;
+}
+
+.card .fab {
+  font-size: xx-large;
+  padding-left: 20px;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.card .fab:hover {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+}
+
+@media only screen and (max-width: 1000px) {
+  .card {
+    -ms-grid-column-span: 6;
+        grid-column-end: span 6;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  main {
+    gap: 20px;
+  }
+  .card {
+    -ms-grid-column-span: 12;
+        grid-column-end: span 12;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  main {
+    -ms-grid-columns: 10px (1fr)[6] 10px;
+        grid-template-columns: 10px repeat(6, 1fr) 10px;
+    gap: 10px;
+  }
+  .cards {
+    -ms-grid-column: 2;
+    -ms-grid-column-span: 6;
+    grid-column: 2 / span 6;
+    -ms-grid-columns: (1fr)[6];
+        grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+  }
+  .card {
+    -ms-grid-column-span: 12;
+        grid-column-end: span 12;
+  }
+}

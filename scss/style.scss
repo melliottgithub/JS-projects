@@ -62,9 +62,13 @@ main {
     font-size: xx-large;
     padding-left: 20px;
     transition: all 0.3s;
+    color: #fff;
     &:hover {
       transform: scale(1.5);
     }
+    // &:active,&:link,&:visited{
+    //   color: #fff;
+    // }
   }
 }
 @media only screen and(max-width:1000px) {

@@ -96,6 +96,7 @@ main {
   padding-left: 20px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
+  color: #fff;
 }
 
 .card .fab:hover {

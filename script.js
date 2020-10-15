@@ -97,6 +97,14 @@ const data = [
     text: "24-Infinite-Scroll",
     img: "/img/24.jpg",
   },
+  {
+    text: "25-Picture-n-Picture",
+    img: "/img/25.jpg",
+  },
+  {
+    text: "26-Jokes-Teller",
+    img: "/img/26.jpg",
+  },
   
 ];
 

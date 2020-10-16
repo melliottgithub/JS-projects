@@ -105,6 +105,14 @@ const data = [
     text: "26-Jokes-Teller",
     img: "/img/26.jpg",
   },
+  {
+    text: "27-Light-Dark-Mode",
+    img: "/img/27.jpg",
+  },
+  {
+    text: "28-Todo-List",
+    img: "/img/28.jpg",
+  },
   
 ];
 

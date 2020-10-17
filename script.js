@@ -113,6 +113,10 @@ const data = [
     text: "28-Todo-List",
     img: "/img/28.jpg",
   },
+  {
+    text: "29-Animations",
+    img: "/img/29.jpg",
+  },
   
 ];
 

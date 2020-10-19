@@ -26,7 +26,7 @@ function addTodo(e) {
   newTodo.classList.add("todo-item");
   todoDiv.appendChild(newTodo);
   //add to local storage
-  saveLocalTodos(todoInput.value);
+  //saveLocalTodos(todoInput.value);
   //add buttons todoButtons(button,icon)
   todoButtons("complete", "check");
   todoButtons("trash", "trash");

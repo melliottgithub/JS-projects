@@ -149,13 +149,13 @@ select {
   padding: 1rem;
 }
 
-select .select {
+.select {
   margin: 1rem;
   position: relative;
   overflow: hidden;
 }
 
-select .select::after {
+.select::after {
   content: "\25BC";
   position: absolute;
   background: #ff6f47;
@@ -167,7 +167,7 @@ select .select::after {
   transition: all 0.3s ease;
 }
 
-select .select:hover::after {
+.select:hover::after {
   background: white;
   color: #ff6f47;
   border-left: 0.1rem solid #ff6f47;

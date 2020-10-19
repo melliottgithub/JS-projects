@@ -117,6 +117,10 @@ const data = [
     text: "29-Animations",
     img: "/img/29.jpg",
   },
+  {
+    text: "30-Navigation",
+    img: "/img/30.jpg",
+  },
   
 ];
 

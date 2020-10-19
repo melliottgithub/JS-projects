@@ -1,9 +1,19 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
 $primaryColor: #fff;
 $navColor1: #21292c;
 $navColor2: #aa3e39;
 $navColor3: #aa6e39;
 $navColor4: #236267;
 $navColor5: #2c8437;
+
+$colors: (
+  navColor1: #21292c,
+  navColor2: #aa3e39,
+  navColor3: #aa6e39,
+  navColor4: #236267,
+  navColor5: #2c8437,
+);
 
 html {
   box-sizing: border-box;
@@ -12,10 +22,117 @@ html {
 body {
   margin: 0;
   background: #000;
+  font-family: Nunito, sans-serif;
 }
 
-/* --- Navigation Menu ------------------------------ */
+/* $- Navigation Menu $$-------------------------- */
+.overlay {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.1);
+  transform: translateX(-100vw);
+  &-slide-right {
+    transition: all 0.4s ease-in-out;
+    transform: translateX(0);
+  }
+  &-slide-left {
+    transition: all 0.8s ease-in-out;
+    transform: translateX(-100vw);
+  }
+}
+/* Nav menu items */
+nav,
+nav ul {
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+nav {
+  ul {
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    list-style: none;
+    li {
+      height: 20%;
+      overflow: hidden;
+      a {
+        position: relative;
+        top: 45%;
+        color: $primaryColor;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+        &:hover {
+          transform: scale(1.2);
+          &::before {
+            opacity: 1;
+          }
+        }
+        &::before {
+          content: "";
+          width: 25vw;
+          height: 3px;
+          background-color: $primaryColor;
+          position: absolute;
+          top: 47.5%;
+          left: 0;
+          opacity: 0;
+        }
+      }
+    }
+  }
+  li:nth-last-of-type(1) {
+    background: $navColor1;
+  }
+  li:nth-last-of-type(2) {
+    background: $navColor2;
+  }
+  li:nth-last-of-type(3) {
+    background: $navColor3;
+  }
+  li:nth-last-of-type(4) {
+    background: $navColor4;
+  }
+  li:nth-last-of-type(5) {
+    background: $navColor5;
+  }
+}
+/* Animation */
+@for $i from 1 through 5 {
+  .slide-in-#{$i} {
+    animation: slide-in 0.4s linear (0s + $i/5) both;
+  }
+}
+@keyframes slide-in{
+    from {
+        transform: translateX(-100%);
+    }
+    to{
+        transform: translateX(0);
 
+    }
+}
+@for $i from 1 through 5 {
+  .slide-out-#{$i} {
+    animation: slide-out 0.3s linear (0.6s - $i/10) both;
+  }
+}
+@keyframes slide-out{
+    from {
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(-100%);
+
+    }
+}
 /* --- Menu Bars ------------------------------------ */
 
 .menu-bars {
@@ -32,22 +149,22 @@ body {
 .bar3 {
   width: 35px;
   height: 2px;
-  background-color: #fff;
+  background-color: $primaryColor;
   margin: 8px 0;
   transition: 0.4s;
 }
 
-/* Rotate first bar */
 .change {
   .bar1 {
+    /* Rotate first bar */
     transform: rotate(-45deg) translate(-7px, 8px);
-    /* Fade out the second bar */
   }
   .bar2 {
+    /* Fade out the second bar */
     opacity: 0;
   }
-  /* Rotate last bar */
-  .change .bar3 {
+  .bar3 {
+    /* Rotate last bar */
     transform: rotate(45deg) translate(-6px, -8px);
   }
 }
@@ -63,7 +180,7 @@ section {
   align-items: center;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--primaryColor);
+  color: $primaryColor;
   &#home {
     background-image: url("https://images.unsplash.com/photo-1581453904507-626ddb717f14?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80");
     background-size: cover;
@@ -76,21 +193,21 @@ section {
       text-decoration: none;
       font-size: 0.8rem;
       padding-bottom: 5px;
-      color: var(--primaryColor);
-      border-bottom: 1px solid var(--primaryColor);
+      color: $primaryColor;
+      border-bottom: 1px solid $primaryColor;
     }
   }
   &#about {
-    background-color: var(--navColor2);
+    background-color: $navColor2;
   }
   &#skills {
-    background-color: var(--navColor3);
+    background-color: $navColor3;
   }
   &#projects {
-    background-color: var(--navColor4);
+    background-color: $navColor4;
   }
   &#contact {
-    background-color: var(--navColor5);
+    background-color: $navColor5;
   }
 }
 

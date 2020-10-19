@@ -121,7 +121,10 @@ const data = [
     text: "30-Navigation",
     img: "/img/30.jpg",
   },
-  
+  {
+    text: "31-Music-Player-2",
+    img: "/img/31.jpg",
+  },
 ];
 
 data.forEach(createBox);

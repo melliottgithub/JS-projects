@@ -125,6 +125,10 @@ const data = [
     text: "31-Music-Player-2",
     img: "/img/31.jpg",
   },
+  {
+    text: "32-BookMarks-App",
+    img: "/img/32.jpg",
+  },
 ];
 
 data.forEach(createBox);

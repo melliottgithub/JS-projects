@@ -139,5 +139,9 @@ const data = [
     text: "35-NASA-APOD",
     img: "/img/35.jpg",
   },
+  {
+    text: "36-DOM-Events",
+    img: "/img/36.jpg",
+  },
 ];
 export default data;

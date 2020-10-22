@@ -143,5 +143,9 @@ const data = [
     text: "36-DOM-Events",
     img: "/img/36.jpg",
   },
+  {
+    text: "37-Pig-Game",
+    img: "/img/37.jpg",
+  },
 ];
 export default data;

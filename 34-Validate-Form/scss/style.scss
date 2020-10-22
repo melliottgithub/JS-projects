@@ -23,14 +23,14 @@ body {
   align-items: center;
   border-radius: 10px;
   box-shadow: 0 5px 30px 10px rgba(0, 0, 0, 0.4);
-  &-message{
-      border: 1px solid black;
-      border-radius: 5px;
-      width: 90%;
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      color: black;
+  &-message {
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 90%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    color: black;
   }
 }
 /* form */

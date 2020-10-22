@@ -135,5 +135,9 @@ const data = [
     text: "34-Validate-Form",
     img: "/img/34.jpg",
   },
+  {
+    text: "35-NASA-APOD",
+    img: "/img/35.jpg",
+  },
 ];
 export default data;

@@ -1,4 +1,3 @@
-
 const days = document.getElementById("days");
 const hours = document.getElementById("hours");
 const minutes = document.getElementById("minutes");
@@ -16,6 +15,7 @@ year.innerText = currentYear + 1;
 
 function updateCountDown() {
   const currentTime = new Date();
+
   const diff = newYearTime - currentTime;
 
   //days left to new year

@@ -13,16 +13,31 @@ const btnNew = query(".btn--new");
 const btnRoll = query(".btn--roll");
 const btnHold = query(".btn--hold");
 
-/* Conditions */
-score0El.textContent = 0;
-score1El.textContent = 0;
-diceEl.classList.add("hidden");
 /* Variables */
-const scores = [0, 0];
-let currentScore = 0;
-let activePlayer = 0;
-let playing = true;
+let scores;
+let currentScore;
+let activePlayer;
+let playing;
 /* Functions */
+const init = function () {
+  /* Conditions */
+  score0El.textContent = 0;
+  score1El.textContent = 0;
+  current0El.textContent = 0;
+  current1El.textContent = 0;
+  /* Variables */
+  scores = [0, 0];
+  currentScore = 0;
+  activePlayer = 0;
+  playing = true;
+
+  diceEl.classList.add("hidden");
+  player0El.classList.remove("player--winner");
+  player1El.classList.remove("player--winner");
+  player0El.classList.add("player--active");
+  player1El.classList.remove("player--active");
+};
+init();
 function switchPlayer() {
   getID(`current--${activePlayer}`).textContent = 0;
   currentScore = 0;
@@ -48,23 +63,14 @@ btnHold.addEventListener("click", () => {
   if (playing) {
     scores[activePlayer] += currentScore;
     getID(`score--${activePlayer}`).textContent = scores[activePlayer];
-    if (scores[activePlayer] >= 5) {
+    if (scores[activePlayer] >= 100) {
       playing = false;
       query(`.player--${activePlayer}`).classList.add("player--winner");
       query(`.player--${activePlayer}`).classList.remove("player--active");
       diceEl.classList.add("hidden");
     } else {
-        switchPlayer();
+      switchPlayer();
     }
-}
+  }
 });
-btnNew.addEventListener("click", () => {
-    diceEl.classList.add("hidden");
-    playing = true;
-    query(`.player--${activePlayer}`).classList.remove("player--winner");
-    query(`.player--${activePlayer}`).classList.remove("player--active");
-    query(`.player--0`).classList.add("player--active");
-    score = [0, 0]
-    
-    
-});
+btnNew.addEventListener("click", init);

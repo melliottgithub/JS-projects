@@ -65,11 +65,20 @@ const inputLoanAmount = query(".form__input--loan-amount");
 const inputCloseUsername = query(".form__input--user");
 const inputClosePin = query(".form__input--pin");
 
+/* PArt 1: New code to add movement to bank */
 const displayMov = function (mov) {
-
   //console.log("mov", mov);
+  //erase html hardcoded data
+  containerMovements.innerHTML = "";
   for (let i = 0; i < mov.length; i++) {
-    const type = mov[i] > 0 ? "deposit" : "withdrawal";
+    // movement at every iteration is less than 0 or more than
+    // less than 0 = withdrawal
+    //more than 0 = deposit
+    let type =''
+    if (mov[i] > 0) type = "deposit";
+    else type = "withdrawal";
+
+    //template literal to add to DOM every iteration
     const html = `
     <div class='movements__row'>
       <div class="movements__type movements__type--${type}">
@@ -78,8 +87,27 @@ const displayMov = function (mov) {
       <div className="movements__value">${mov[i]}</div>
     </div>
   `;
+    //insert html constant after begin containerMovements
     containerMovements.insertAdjacentHTML("afterbegin", html);
   }
+};
+/*  Part 1: Refactor ES6+, arrow functions, ternary conditionals*/
+const displayTransactionsDOM = (transactions) => {
+  containerMovements.innerHTML = "";
+  transactions.forEach((transaction, i) => {
+    const type = transaction > 0 ? "deposit" : "withdrawal";
+
+    const html = `
+    <div class='movements__row'>
+      <div class="movements__type movements__type--${type}">
+        ${i + 1} ${type}
+      </div>
+      <div className="movements__value">${transaction}</div>
+    </div>
+  `;
+
+    containerMovements.insertAdjacentHTML("afterbegin", html);
+  });
 };
 
 /////////////////////////////////////////////////
@@ -95,5 +123,6 @@ const currencies = new Map([
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
-/* Display account movements */
+/*Part 1: Display account movements */
+//displayTransactionsDOM(account1.movements);
 displayMov(account1.movements);

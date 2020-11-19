@@ -147,5 +147,9 @@ const data = [
     text: "37-Pig-Game",
     img: "/img/37.jpg",
   },
+  {
+    text: "38-Bank",
+    img: "/img/1.jpg",
+  },
 ];
 export default data;

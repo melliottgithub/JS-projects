@@ -66,6 +66,7 @@ const inputCloseUsername = query(".form__input--user");
 const inputClosePin = query(".form__input--pin");
 
 /* PArt 1: New code to add movement to bank */
+//function displayMov(mov) {
 const displayMov = function (mov) {
   //console.log("mov", mov);
   //erase html hardcoded data
@@ -74,7 +75,7 @@ const displayMov = function (mov) {
     // movement at every iteration is less than 0 or more than
     // less than 0 = withdrawal
     //more than 0 = deposit
-    let type =''
+    let type = "";
     if (mov[i] > 0) type = "deposit";
     else type = "withdrawal";
 
@@ -87,7 +88,7 @@ const displayMov = function (mov) {
       <div className="movements__value">${mov[i]}</div>
     </div>
   `;
-    //insert html constant after begin containerMovements
+    //insert html constant after beginning containerMovements
     containerMovements.insertAdjacentHTML("afterbegin", html);
   }
 };
@@ -98,17 +99,39 @@ const displayTransactionsDOM = (transactions) => {
     const type = transaction > 0 ? "deposit" : "withdrawal";
 
     const html = `
-    <div class='movements__row'>
-      <div class="movements__type movements__type--${type}">
-        ${i + 1} ${type}
+      <div class='movements__row'>
+        <div class="movements__type movements__type--${type}">
+          ${i + 1} ${type}
+        </div>
+        <div className="movements__value">${transaction}</div>
       </div>
-      <div className="movements__value">${transaction}</div>
-    </div>
-  `;
+   `;
 
     containerMovements.insertAdjacentHTML("afterbegin", html);
   });
 };
+/* Part 2: create usernames */
+//const accounts = [account1, account2, account3, account4];
+/* const account1 = {
+  owner: "Michael A Elliott",
+  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
+  interestRate: 1.2, // %
+  pin: 1111,
+  user: mae,
+}; */
+function userName(accounts) {
+  for (let i = 0; i < accounts.length; i++) {
+    let userParts = accounts[i].owner.split(" ");
+    let firstLetters = "";
+
+    for (let j = 0; j < userParts.length; j++) {
+      firstLetters += userParts[j][0].toLowerCase();
+    }
+    accounts[i].username = firstLetters;
+  }
+  console.log(accounts);
+  return accounts;
+}
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -124,5 +147,14 @@ const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 /*Part 1: Display account movements */
-//displayTransactionsDOM(account1.movements);
-displayMov(account1.movements);
+//displayMov(movements);
+displayTransactionsDOM(account1.movements);
+userName(accounts);
+//console.log(containerApp);
+btnLogin.addEventListener("click", (e) => {
+  e.preventDefault();
+  //containerApp.style.display = "grid";
+  containerApp.style.opacity = 100;
+  /* containerApp.classList.remove("app");
+  containerApp.classList.add("hidden"); */
+});

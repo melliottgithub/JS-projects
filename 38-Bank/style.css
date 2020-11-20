@@ -94,9 +94,15 @@ nav {
   gap: 2rem;
 
   /* NOTE This creates the fade in/out animation */
-  opacity: 1;
-  transition: all 1s;
+  opacity: 0;
+  transition:display 1s;
+  transition:opacity 1s;
 }
+/* .hidden {
+  opacity: 1;
+  display: grid;
+  transition: all 1s;
+} */
 
 .balance {
   grid-column: 1 / span 2;

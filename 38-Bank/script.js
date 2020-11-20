@@ -68,7 +68,6 @@ const inputClosePin = query(".form__input--pin");
 /* PArt 1: New code to add movement to bank */
 //function displayMov(mov) {
 const displayMov = function (mov) {
-  //console.log("mov", mov);
   //erase html hardcoded data
   containerMovements.innerHTML = "";
   for (let i = 0; i < mov.length; i++) {
@@ -103,36 +102,61 @@ const displayTransactionsDOM = (transactions) => {
         <div class="movements__type movements__type--${type}">
           ${i + 1} ${type}
         </div>
-        <div className="movements__value">${transaction}</div>
+        <div class="movements__value">${transaction}</div>
       </div>
    `;
 
     containerMovements.insertAdjacentHTML("afterbegin", html);
   });
 };
-/* Part 2: create usernames */
-//const accounts = [account1, account2, account3, account4];
-/* const account1 = {
-  owner: "Michael A Elliott",
-  movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
-  interestRate: 1.2, // %
-  pin: 1111,
-  user: mae,
-}; */
+/* Part 2: conversion currency */
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.19;
+const movementsUSDforOfLoop = [];
+//for of loop
+for (const trans of movements) movementsUSDforOfLoop.push(trans * eurToUsd);
+//console.log(movementsUSDforOfLoop);
+
+/* ES6+, arrow function*/
+const transactionsUSD = movements.map((transaction) => transaction * eurToUsd);
+//console.log(transactionsUSD);
+
+const transactionsDesc = movements.map(
+  (trans, i) =>
+    `Transaction ${i + 1}: You ${
+      trans > 0 ? "deposited" : "withdrew"
+    } ${Math.abs(trans)}`
+);
+//console.log(transactionsDesc);
+
+/* Part 3: create usernames */
+
 function userName(accounts) {
   for (let i = 0; i < accounts.length; i++) {
-    let userParts = accounts[i].owner.split(" ");
+    let userParts = accounts[i].owner.toLowerCase().split(" ");
     let firstLetters = "";
 
     for (let j = 0; j < userParts.length; j++) {
-      firstLetters += userParts[j][0].toLowerCase();
+      firstLetters += userParts[j][0];
     }
     accounts[i].username = firstLetters;
   }
   console.log(accounts);
   return accounts;
 }
-
+//userName(accounts);
+/* ES6+, arrow functions */
+const createUserNames = (accounts) => {
+  accounts.forEach((acc) => {
+    acc.username = acc.owner
+    .toLowerCase()
+    .split(" ")
+    .map((firstLetter) => firstLetter[0])
+    .join("");
+  });
+};
+createUserNames(accounts);
+//console.log(accounts);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -143,13 +167,12 @@ const currencies = new Map([
   ["GBP", "Pound sterling"],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+//const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 /*Part 1: Display account movements */
 //displayMov(movements);
-displayTransactionsDOM(account1.movements);
-userName(accounts);
+displayTransactionsDOM(movements);
 //console.log(containerApp);
 btnLogin.addEventListener("click", (e) => {
   e.preventDefault();

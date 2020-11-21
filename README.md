@@ -32,4 +32,4 @@ Tasks:
 
 6. Create array totals (sum all movements)
 
-7. We will add more as we advance...
+7. Change Total to USD

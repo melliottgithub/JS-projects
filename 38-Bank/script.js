@@ -92,6 +92,8 @@ const displayMov = function (mov) {
   }
 };
 /*  Part 1: Refactor ES6+, arrow functions, ternary conditionals*/
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const eurToUsd = 1.19;
 const displayTransactionsDOM = (transactions) => {
   containerMovements.innerHTML = "";
   transactions.forEach((transaction, i) => {
@@ -99,20 +101,20 @@ const displayTransactionsDOM = (transactions) => {
 
     const html = `
       <div class='movements__row'>
-      <div class="movements__type movements__type--${type}">
-      ${i + 1} ${type}
-      </div>
-      <div class="movements__value">${transaction}</div>
+        <div class="movements__type movements__type--${type}">
+          ${i + 1} ${type}
+        </div>
+        <div class="movements__value">$${(transaction * eurToUsd).toFixed(
+          2
+        )}</div>
       </div>
       `;
 
     containerMovements.insertAdjacentHTML("afterbegin", html);
   });
 };
-displayTransactionsDOM(account1.movements);
+displayTransactionsDOM(movements);
 /* Part 2: conversion currency */
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
-const eurToUsd = 1.19;
 const movementsUSDforOfLoop = [];
 //for of loop
 for (const trans of movements) movementsUSDforOfLoop.push(trans * eurToUsd);
@@ -171,25 +173,61 @@ const deposits = function (transactions) {
 };
 // console.log(deposits(account2.movements));
 const deposit = movements.filter((trans) => trans > 0);
-console.log(deposit);
+//console.log(deposit);
 
 /* Part 5: array of withdrawals */
 const withdrawal = movements.filter((trans) => trans < 0);
-console.log(withdrawal);
+//console.log(withdrawal);
 
 /* Part 6: array of totals */
 let balanceForLoop = 0;
 for (const trans of movements) balanceForLoop += trans;
-console.log("balanceForloop", balanceForLoop);
 
 const total = movements.reduce((total, transaction) => total + transaction, 0);
-console.log("balance", total);
 //DOM
 const displayBalance = (movements) => {
   const balance = movements.reduce((total, trans) => total + trans, 0);
   labelBalance.textContent = `${balance} EUR`;
 };
 displayBalance(account1.movements);
+
+/* Part 7: Change EUR to USD */
+const exchange = function (trans) {
+  const newArr = [];
+  for (const i in trans) {
+    newArr.push(trans[i] * eurToUsd);
+  }
+  return newArr;
+};
+//console.log(exchange(movements));
+
+const totalUSD = movements
+  .map((num) => num * eurToUsd)
+  .reduce((total, trans) => total + trans, 0);
+//console.log(totalUSD);
+
+const depositsUSD = movements
+  .filter((trans) => trans > 0)
+  .map((num) => num * eurToUsd)
+  .reduce((total, trans) => total + trans, 0);
+//console.log(depositsUSD);
+
+const withdrawalsUSD = movements
+  .filter((trans) => trans < 0)
+  .map((num) => num * eurToUsd)
+  .reduce((total, trans) => total + trans, 0);
+//console.log(withdrawalsUSD);
+
+const displaySummary = (transactions) => {
+  const totalDepositsUSD = transactions
+    .filter((trans) => trans > 0)
+    .map((num) => num * eurToUsd)
+    .reduce((total, trans) => total + trans, 0)
+    .toFixed(2);
+  labelSumIn.textContent = `${totalDepositsUSD} $`;
+  console.log(totalDepositsUSD);
+};
+displaySummary(movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES

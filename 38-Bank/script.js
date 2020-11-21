@@ -234,6 +234,12 @@ const displaySummary = (transactions) => {
     .reduce((total, trans) => total + trans, 0)
     .toFixed(2);
   labelSumOut.textContent = `$${Math.abs(totalWithdrawalsUSD)}`;
+  const interestTotalUSD = transactions
+    .filter((trans) => trans > 0)
+    .map((num) => (num * eurToUsd * 1.2) / 100)
+    .reduce((interest, trans) => interest + trans, 0)
+    .toFixed(2);
+  labelSumInterest.textContent = `$${Math.abs(interestTotalUSD)}`;
 };
 displaySummary(movements);
 /////////////////////////////////////////////////

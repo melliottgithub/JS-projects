@@ -185,9 +185,11 @@ for (const trans of movements) balanceForLoop += trans;
 
 const total = movements.reduce((total, transaction) => total + transaction, 0);
 //DOM
-const displayBalance = (movements) => {
-  const balance = movements.reduce((total, trans) => total + trans, 0);
-  labelBalance.textContent = `${balance} EUR`;
+const displayBalance = (transactions) => {
+  const balance = transactions
+    .reduce((total, trans) => total * eurToUsd + trans, 0)
+    .toFixed(2);
+  labelBalance.textContent = `$${balance}`;
 };
 displayBalance(account1.movements);
 
@@ -224,8 +226,14 @@ const displaySummary = (transactions) => {
     .map((num) => num * eurToUsd)
     .reduce((total, trans) => total + trans, 0)
     .toFixed(2);
-  labelSumIn.textContent = `${totalDepositsUSD} $`;
-  console.log(totalDepositsUSD);
+  labelSumIn.textContent = `$${totalDepositsUSD}`;
+  //console.log(totalDepositsUSD);
+  const totalWithdrawalsUSD = transactions
+    .filter((trans) => trans < 0)
+    .map((num) => num * eurToUsd)
+    .reduce((total, trans) => total + trans, 0)
+    .toFixed(2);
+  labelSumOut.textContent = `$${Math.abs(totalWithdrawalsUSD)}`;
 };
 displaySummary(movements);
 /////////////////////////////////////////////////

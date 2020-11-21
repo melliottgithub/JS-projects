@@ -227,13 +227,12 @@ const displaySummary = (transactions) => {
     .reduce((total, trans) => total + trans, 0)
     .toFixed(2);
   labelSumIn.textContent = `$${totalDepositsUSD}`;
-  //console.log(totalDepositsUSD);
   const totalWithdrawalsUSD = transactions
     .filter((trans) => trans < 0)
     .map((num) => num * eurToUsd)
     .reduce((total, trans) => total + trans, 0)
-    .toFixed(2);
-  labelSumOut.textContent = `$${Math.abs(totalWithdrawalsUSD)}`;
+    .toFixed(2).slice(1);
+  labelSumOut.textContent = `$${totalWithdrawalsUSD}`;
   const interestTotalUSD = transactions
     .filter((trans) => trans > 0)
     .map((num) => (num * eurToUsd * 1.2) / 100)
@@ -242,6 +241,9 @@ const displaySummary = (transactions) => {
   labelSumInterest.textContent = `$${Math.abs(interestTotalUSD)}`;
 };
 displaySummary(movements);
+
+/* Part 8: find account to log in */
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -255,16 +257,12 @@ const currencies = new Map([
 //const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
-/*Part 1: Display account movements */
-//displayMov(movements);
-//console.log(containerApp);
+
 btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
-  //containerApp.style.display = "grid";
   containerApp.style.opacity = 100;
-  /* containerApp.classList.remove("app");
-  containerApp.classList.add("hidden"); */
 });
+
 /* Extra tasks */
 /* add movements max and min functions and elements to the DOM */
 /* Create Unit tests */

@@ -32,4 +32,6 @@ Tasks:
 
 6. Create array totals (sum all movements)
 
-7. Change Total to USD
+7. Change Total, deposits, withdrawal, etc to USD
+
+8. Query accounts objects in accounts array.

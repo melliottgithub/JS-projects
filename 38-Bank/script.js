@@ -99,16 +99,17 @@ const displayTransactionsDOM = (transactions) => {
 
     const html = `
       <div class='movements__row'>
-        <div class="movements__type movements__type--${type}">
-          ${i + 1} ${type}
-        </div>
-        <div class="movements__value">${transaction}</div>
+      <div class="movements__type movements__type--${type}">
+      ${i + 1} ${type}
       </div>
-   `;
+      <div class="movements__value">${transaction}</div>
+      </div>
+      `;
 
     containerMovements.insertAdjacentHTML("afterbegin", html);
   });
 };
+displayTransactionsDOM(account1.movements);
 /* Part 2: conversion currency */
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const eurToUsd = 1.19;
@@ -149,14 +150,46 @@ function userName(accounts) {
 const createUserNames = (accounts) => {
   accounts.forEach((acc) => {
     acc.username = acc.owner
-    .toLowerCase()
-    .split(" ")
-    .map((firstLetter) => firstLetter[0])
-    .join("");
+      .toLowerCase()
+      .split(" ")
+      .map((firstLetter) => firstLetter[0])
+      .join("");
   });
 };
 createUserNames(accounts);
 //console.log(accounts);
+/* Part 4:  Create an array of deposits*/
+const deposits = function (transactions) {
+  // console.log(movements);
+  let depositsTotal = 0;
+  for (let tran of transactions) {
+    if (tran > 0) {
+      depositsTotal += tran;
+    }
+  }
+  return depositsTotal;
+};
+// console.log(deposits(account2.movements));
+const deposit = movements.filter((trans) => trans > 0);
+console.log(deposit);
+
+/* Part 5: array of withdrawals */
+const withdrawal = movements.filter((trans) => trans < 0);
+console.log(withdrawal);
+
+/* Part 6: array of totals */
+let balanceForLoop = 0;
+for (const trans of movements) balanceForLoop += trans;
+console.log("balanceForloop", balanceForLoop);
+
+const total = movements.reduce((total, transaction) => total + transaction, 0);
+console.log("balance", total);
+//DOM
+const displayBalance = (movements) => {
+  const balance = movements.reduce((total, trans) => total + trans, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+displayBalance(account1.movements);
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -172,7 +205,6 @@ const currencies = new Map([
 /////////////////////////////////////////////////
 /*Part 1: Display account movements */
 //displayMov(movements);
-displayTransactionsDOM(movements);
 //console.log(containerApp);
 btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
@@ -181,3 +213,6 @@ btnLogin.addEventListener("click", (e) => {
   /* containerApp.classList.remove("app");
   containerApp.classList.add("hidden"); */
 });
+/* Extra tasks */
+/* add movements max and min functions and elements to the DOM */
+/* Create Unit tests */

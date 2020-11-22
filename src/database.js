@@ -149,7 +149,7 @@ const data = [
   },
   {
     text: "38-Bank",
-    img: "/img/1.jpg",
+    img: "/img/38.jpg",
   },
 ];
 export default data;

@@ -39,3 +39,5 @@ Tasks:
 9. Use transfer money to send amount to others.
 
 10. Use request loan to add amount to account.
+
+11. Close account.

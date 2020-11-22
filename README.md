@@ -35,3 +35,7 @@ Tasks:
 7. Change Total, deposits, withdrawal, etc to USD
 
 8. Query accounts objects in accounts array.
+
+9. Use transfer money to send amount to others.
+
+10. Use request loan to add amount to account.

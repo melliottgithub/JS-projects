@@ -179,12 +179,12 @@ for (const trans of movements) balanceForLoop += trans;
 
 const total = movements.reduce((total, transaction) => total + transaction, 0);
 //DOM
-const displayBalance = (transactions) => {
-  const balance = transactions.reduce(
+const displayBalance = (account) => {
+  account.balance = account.movements.reduce(
     (total, trans) => total + trans * eurToUsd,
     0
   );
-  labelBalance.textContent = `$${balance.toFixed(2)}`;
+  labelBalance.textContent = `$${account.balance.toFixed(2)}`;
 };
 
 /* Part 7: Change EUR to USD */
@@ -242,6 +242,9 @@ const findAcc = function (accounts) {
     }
   }
 };
+
+accounts.find((acc) => acc.username === inputLoginUsername.value);
+/* Part 9:  */
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -256,10 +259,17 @@ const currencies = new Map([
 
 /////////////////////////////////////////////////
 createUserNames(accounts);
+
+const updateDisplayTransactions = (currentAccount) => {
+  displayTransactionsDOM(currentAccount.movements);
+  displayBalance(currentAccount);
+  displaySummary(currentAccount);
+};
+
 let currentAccount;
 inputLoginPin.value = "1111";
 inputLoginUsername.value = "me";
-//NOt ES6+
+//Not ES6+
 /* btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
 
@@ -283,9 +293,10 @@ inputLoginUsername.value = "me";
     displaySummary(currentAccount);
   }
 }); */
+/* Event Listeners */
 btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
-  const currentAccount = accounts.find(
+  currentAccount = accounts.find(
     (acc) => acc.username === inputLoginUsername.value
   );
   if (currentAccount?.pin === +inputLoginPin.value) {
@@ -297,13 +308,29 @@ btnLogin.addEventListener("click", (e) => {
     inputLoginUsername.blur();
     inputLoginPin.blur();
 
-    displayTransactionsDOM(currentAccount.movements);
-    displayBalance(currentAccount.movements);
-    displaySummary(currentAccount);
+    updateDisplayTransactions(currentAccount);
+  }
+});
+btnTransfer.addEventListener("click", (e) => {
+  e.preventDefault();
+  const transferAmount = +inputTransferAmount.value;
+  const accountTransferTo = accounts.find(
+    (acc) => acc.username === inputTransferTo.value
+  );
+  if (
+    transferAmount > 0 &&
+    accountTransferTo &&
+    currentAccount.balance >= transferAmount &&
+    currentAccount?.username !== accountTransferTo.username
+  ) {
+    currentAccount.movements.push((transferAmount / eurToUsd) * -1);
+    accountTransferTo.movements.push(transferAmount / eurToUsd);
+    updateDisplayTransactions(currentAccount);
+    inputTransferAmount.value = inputTransferTo.value = "";
+    inputTransferAmount.blur();
   }
 });
 /* Extra tasks */
 /* add movements max and min functions and elements to the DOM */
 /* Add interest only to deposits more than 1$ */
 /* Create Unit tests */
-

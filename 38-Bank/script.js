@@ -33,7 +33,14 @@ const account4 = {
   pin: 4444,
 };
 
-const accounts = [account1, account2, account3, account4];
+const account5 = {
+  owner: "Zen G",
+  movements: [-430, -1000, -700, -50, -90],
+  interestRate: 0,
+  pin: 5555,
+};
+
+const accounts = [account1, account2, account3, account4, account5];
 
 // Elements
 function query(classEl) {
@@ -113,16 +120,13 @@ const displayTransactionsDOM = (transactions) => {
     containerMovements.insertAdjacentHTML("afterbegin", html);
   });
 };
-displayTransactionsDOM(movements);
 /* Part 2: conversion currency */
 const movementsUSDforOfLoop = [];
 //for of loop
 for (const trans of movements) movementsUSDforOfLoop.push(trans * eurToUsd);
-//console.log(movementsUSDforOfLoop);
 
 /* ES6+, arrow function*/
 const transactionsUSD = movements.map((transaction) => transaction * eurToUsd);
-//console.log(transactionsUSD);
 
 const transactionsDesc = movements.map(
   (trans, i) =>
@@ -130,8 +134,6 @@ const transactionsDesc = movements.map(
       trans > 0 ? "deposited" : "withdrew"
     } ${Math.abs(trans)}`
 );
-//console.log(transactionsDesc);
-
 /* Part 3: create usernames */
 
 function userName(accounts) {
@@ -144,10 +146,8 @@ function userName(accounts) {
     }
     accounts[i].username = firstLetters;
   }
-  console.log(accounts);
   return accounts;
 }
-//userName(accounts);
 /* ES6+, arrow functions */
 const createUserNames = (accounts) => {
   accounts.forEach((acc) => {
@@ -158,26 +158,20 @@ const createUserNames = (accounts) => {
       .join("");
   });
 };
-createUserNames(accounts);
-//console.log(accounts);
 /* Part 4:  Create an array of deposits*/
 const deposits = function (transactions) {
-  // console.log(movements);
   let depositsTotal = 0;
-  for (let tran of transactions) {
-    if (tran > 0) {
-      depositsTotal += tran;
+  for (let trans of transactions) {
+    if (trans > 0) {
+      depositsTotal += trans;
     }
   }
   return depositsTotal;
 };
-// console.log(deposits(account2.movements));
 const deposit = movements.filter((trans) => trans > 0);
-//console.log(deposit);
 
 /* Part 5: array of withdrawals */
 const withdrawal = movements.filter((trans) => trans < 0);
-//console.log(withdrawal);
 
 /* Part 6: array of totals */
 let balanceForLoop = 0;
@@ -186,12 +180,12 @@ for (const trans of movements) balanceForLoop += trans;
 const total = movements.reduce((total, transaction) => total + transaction, 0);
 //DOM
 const displayBalance = (transactions) => {
-  const balance = transactions
-    .reduce((total, trans) => total * eurToUsd + trans, 0)
-    .toFixed(2);
-  labelBalance.textContent = `$${balance}`;
+  const balance = transactions.reduce(
+    (total, trans) => total + trans * eurToUsd,
+    0
+  );
+  labelBalance.textContent = `$${balance.toFixed(2)}`;
 };
-displayBalance(account1.movements);
 
 /* Part 7: Change EUR to USD */
 const exchange = function (trans) {
@@ -201,49 +195,53 @@ const exchange = function (trans) {
   }
   return newArr;
 };
-//console.log(exchange(movements));
 
 const totalUSD = movements
   .map((num) => num * eurToUsd)
   .reduce((total, trans) => total + trans, 0);
-//console.log(totalUSD);
 
 const depositsUSD = movements
   .filter((trans) => trans > 0)
   .map((num) => num * eurToUsd)
   .reduce((total, trans) => total + trans, 0);
-//console.log(depositsUSD);
 
 const withdrawalsUSD = movements
   .filter((trans) => trans < 0)
   .map((num) => num * eurToUsd)
   .reduce((total, trans) => total + trans, 0);
-//console.log(withdrawalsUSD);
-
-const displaySummary = (transactions) => {
-  const totalDepositsUSD = transactions
+//display summary
+const displaySummary = (account) => {
+  const totalDepositsUSD = account.movements
     .filter((trans) => trans > 0)
     .map((num) => num * eurToUsd)
-    .reduce((total, trans) => total + trans, 0)
-    .toFixed(2);
-  labelSumIn.textContent = `$${totalDepositsUSD}`;
-  const totalWithdrawalsUSD = transactions
+    .reduce((total, trans) => total + trans, 0);
+
+  labelSumIn.textContent = `$${totalDepositsUSD.toFixed(2)}`;
+
+  const totalWithdrawalsUSD = account.movements
     .filter((trans) => trans < 0)
     .map((num) => num * eurToUsd)
-    .reduce((total, trans) => total + trans, 0)
-    .toFixed(2).slice(1);
-  labelSumOut.textContent = `$${totalWithdrawalsUSD}`;
-  const interestTotalUSD = transactions
+    .reduce((total, trans) => total + trans, 0);
+  labelSumOut.textContent = `$${Math.abs(totalWithdrawalsUSD).toFixed(2)}`;
+
+  const interestTotalUSD = account.movements
     .filter((trans) => trans > 0)
-    .map((num) => (num * eurToUsd * 1.2) / 100)
-    .reduce((interest, trans) => interest + trans, 0)
-    .toFixed(2);
-  labelSumInterest.textContent = `$${Math.abs(interestTotalUSD)}`;
+    .map((num) => (num * eurToUsd * account.interestRate) / 100)
+    .reduce((interest, trans) => interest + trans, 0);
+  labelSumInterest.textContent = `$${Math.abs(interestTotalUSD).toFixed(2)}`;
 };
-displaySummary(movements);
 
 /* Part 8: find account to log in */
-
+const ownerAcc = "Michael Elliott";
+const findAcc = function (accounts) {
+  for (let i in accounts) {
+    if (accounts[num].username === inputLoginUsername.value) {
+      if (accounts[num].pin === +inputLoginPin.value) {
+        containerApp.style.opacity = 100;
+      }
+    }
+  }
+};
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -257,12 +255,55 @@ const currencies = new Map([
 //const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+createUserNames(accounts);
+let currentAccount;
+inputLoginPin.value = "1111";
+inputLoginUsername.value = "me";
+//NOt ES6+
+/* btnLogin.addEventListener("click", (e) => {
+  e.preventDefault();
 
+  const findAccount = function (accounts) {
+    for (const num in accounts) {
+      if (accounts[num].username === inputLoginUsername.value) {
+        return accounts[num];
+      }
+    }
+  };
+  currentAccount = findAccount(accounts);
+  if (currentAccount.pin === +inputLoginPin.value) {
+    containerApp.style.opacity = 100;
+    inputLoginUsername.value = inputLoginPin.value = "";
+    labelWelcome.textContent = `Welcome back ${
+      currentAccount.owner.split(" ")[0]
+    }!`;
+    inputLoginPin.blur()
+    displayTransactionsDOM(currentAccount.movements);
+    displayBalance(currentAccount.movements);
+    displaySummary(currentAccount);
+  }
+}); */
 btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
-  containerApp.style.opacity = 100;
-});
+  const currentAccount = accounts.find(
+    (acc) => acc.username === inputLoginUsername.value
+  );
+  if (currentAccount?.pin === +inputLoginPin.value) {
+    labelWelcome.textContent = `Welcome back ${
+      currentAccount.owner.split(" ")[0]
+    }!`;
+    containerApp.style.opacity = 100;
+    inputLoginUsername.value = inputLoginPin.value = "";
+    inputLoginUsername.blur();
+    inputLoginPin.blur();
 
+    displayTransactionsDOM(currentAccount.movements);
+    displayBalance(currentAccount.movements);
+    displaySummary(currentAccount);
+  }
+});
 /* Extra tasks */
 /* add movements max and min functions and elements to the DOM */
+/* Add interest only to deposits more than 1$ */
 /* Create Unit tests */
+

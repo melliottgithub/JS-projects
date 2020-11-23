@@ -13,7 +13,7 @@ const account1 = {
   movementsDates: [
     "2019-11-18T21:31:17.178Z",
     "2019-12-23T07:42:02.383Z",
-    "2020-01-28T09:15:04.904Z",
+    "2020-02-27T09:15:04.904Z",
     "2020-04-01T10:17:24.185Z",
     "2020-05-08T14:11:59.604Z",
     "2020-05-27T17:01:17.194Z",
@@ -76,11 +76,11 @@ const account5 = {
   interestRate: 0,
   pin: 5555,
   movementsDates: [
-    "2019-11-18T21:31:17.178Z",
-    "2019-12-23T07:42:02.383Z",
-    "2020-01-28T09:15:04.904Z",
     "2020-04-01T10:17:24.185Z",
     "2020-05-08T14:11:59.604Z",
+    "2020-05-27T17:01:17.194Z",
+    "2020-07-11T23:36:17.929Z",
+    "2020-07-12T10:51:36.790Z",
   ],
 };
 
@@ -145,25 +145,27 @@ const displayMov = function (mov) {
 /*  Part 1: Refactor ES6+, arrow functions, ternary conditionals*/
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const eurToUsd = 1.19;
-const displayTransactionsDOM = (transactions, sort = false) => {
+const displayTransactionsDOM = (account, sort = false) => {
+  //labelDate.innerHTML = "";
   containerMovements.innerHTML = "";
+  //show the time at logging
   /* Part 12: Sort transaction DOM */
   const trans = sort
-    ? transactions.slice().sort((a, b) => a - b)
-    : transactions;
-
+    ? account.movements.slice().sort((a, b) => a - b)
+    : account.movements;
   trans.forEach((transaction, i) => {
     const type = transaction > 0 ? "deposit" : "withdrawal";
-
+    const displayDate = date(account.movementsDates[i]);
     const html = `
-      <div class='movements__row'>
-        <div class="movements__type movements__type--${type}">
-          ${i + 1} ${type}
-        </div>
-        <div class="movements__value">$${(transaction * eurToUsd).toFixed(
-          2
-        )}</div>
+    <div class='movements__row'>
+      <div class="movements__type movements__type--${type}">
+        ${i + 1} ${type}
       </div>
+      <div class="movements__date">${displayDate}</div> 
+      <div class="movements__value">$${(transaction * eurToUsd).toFixed(
+        2
+      )}</div>
+    </div>
       `;
 
     containerMovements.insertAdjacentHTML("afterbegin", html);
@@ -310,7 +312,7 @@ const currencies = new Map([
 createUserNames(accounts);
 
 const updateDisplayTransactions = (currentAccount) => {
-  displayTransactionsDOM(currentAccount.movements);
+  displayTransactionsDOM(currentAccount);
   displayBalance(currentAccount);
   displaySummary(currentAccount);
 };
@@ -319,33 +321,30 @@ let currentAccount;
 inputLoginPin.value = "1111";
 inputLoginUsername.value = "me";
 
-const now = new Date();
-const day = now.getDate();
-
 //Not ES6+
 /* btnLogin.addEventListener("click", (e) => {
-  e.preventDefault();
-
-  const findAccount = function (accounts) {
-    for (const num in accounts) {
-      if (accounts[num].username === inputLoginUsername.value) {
-        return accounts[num];
-      }
-    }
-  };
-  currentAccount = findAccount(accounts);
-  if (currentAccount.pin === +inputLoginPin.value) {
-    containerApp.style.opacity = 100;
-    inputLoginUsername.value = inputLoginPin.value = "";
-    labelWelcome.textContent = `Welcome back ${
-      currentAccount.owner.split(" ")[0]
-    }!`;
-    inputLoginPin.blur()
-    displayTransactionsDOM(currentAccount.movements);
-    displayBalance(currentAccount.movements);
-    displaySummary(currentAccount);
-  }
-}); */
+        e.preventDefault();
+        
+        const findAccount = function (accounts) {
+          for (const num in accounts) {
+            if (accounts[num].username === inputLoginUsername.value) {
+              return accounts[num];
+            }
+          }
+        };
+        currentAccount = findAccount(accounts);
+        if (currentAccount.pin === +inputLoginPin.value) {
+          containerApp.style.opacity = 100;
+          inputLoginUsername.value = inputLoginPin.value = "";
+          labelWelcome.textContent = `Welcome back ${
+            currentAccount.owner.split(" ")[0]
+          }!`;
+          inputLoginPin.blur()
+          displayTransactionsDOM(currentAccount.movements);
+          displayBalance(currentAccount.movements);
+          displaySummary(currentAccount);
+        }
+      }); */
 /* Event Listeners */
 btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
@@ -353,6 +352,7 @@ btnLogin.addEventListener("click", (e) => {
     (acc) => acc.username === inputLoginUsername.value
   );
   if (currentAccount?.pin === +inputLoginPin.value) {
+    labelDate.textContent = date();
     labelWelcome.textContent = `Welcome back ${
       currentAccount.owner.split(" ")[0]
     }!`;
@@ -379,6 +379,8 @@ btnTransfer.addEventListener("click", (e) => {
   ) {
     currentAccount.movements.push((transferAmount / eurToUsd) * -1);
     accountTransferTo.movements.push(transferAmount / eurToUsd);
+    currentAccount.movementsDates.push(new Date().toISOString());
+    accountTransferTo.movementsDates.push(new Date().toISOString());
     updateDisplayTransactions(currentAccount);
     inputTransferAmount.value = inputTransferTo.value = "";
     inputTransferAmount.blur();
@@ -394,6 +396,7 @@ btnLoan.addEventListener("click", (e) => {
   );
   if (amount > 0 && loanTerms) {
     currentAccount.movements.push(amount / eurToUsd);
+    currentAccount.movementsDates.push(new Date().toISOString());
     updateDisplayTransactions(currentAccount);
     inputLoanAmount.value = "";
     inputLoanAmount.blur();
@@ -421,9 +424,29 @@ btnClose.addEventListener("click", (e) => {
 let sorted = false;
 btnSort.addEventListener("click", (e) => {
   e.preventDefault();
-  displayTransactionsDOM(currentAccount.movements, !sorted);
+  displayTransactionsDOM(currentAccount, !sorted);
   sorted = !sorted;
 });
+/* Part 13: get calendar day and time */
+const date = (time) => {
+  const now = time === undefined ? new Date() : new Date(time);
+  const sec = `${now.getSeconds()}`.padStart(2, 0);
+  const min = `${now.getMinutes()}`.padStart(2, 0);
+  const hour = `${now.getHours()}`.padStart(2, 0);
+  const day = `${now.getDate()}`.padStart(2, 0);
+  const month = `${now.getMonth()}`; //.padStart(2, 0);
+  const year = now.getFullYear();
+
+  const loggedInTimer = `${month}/${day}/${year}, ${hour}:${min}:${sec}`;
+  const timeStamp = `${month}/${day}/${year}`;
+
+  const clock = time === undefined ? loggedInTimer : timeStamp;
+  return clock;
+  // labelDate.textContent = clock;
+  // console.log(clock);
+};
+
+// date();
 
 /* Extra tasks */
 /* add movements max and min functions and elements to the DOM */

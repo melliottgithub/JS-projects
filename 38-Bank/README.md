@@ -44,4 +44,4 @@ Tasks:
 
 12. Sort display in DOM
 
-13. Add date
+13. Add date and timestamp to the transactions.

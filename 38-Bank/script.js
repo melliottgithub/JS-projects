@@ -311,6 +311,7 @@ btnLogin.addEventListener("click", (e) => {
     updateDisplayTransactions(currentAccount);
   }
 });
+/* Part 9: Transfer money */
 btnTransfer.addEventListener("click", (e) => {
   e.preventDefault();
   const transferAmount = +inputTransferAmount.value;
@@ -328,6 +329,39 @@ btnTransfer.addEventListener("click", (e) => {
     updateDisplayTransactions(currentAccount);
     inputTransferAmount.value = inputTransferTo.value = "";
     inputTransferAmount.blur();
+  }
+});
+/* Part 10: Request Loan */
+btnLoan.addEventListener("click", (e) => {
+  e.preventDefault();
+  //console.log(currentAccount);
+  const amount = +inputLoanAmount.value;
+  const loanTerms = currentAccount.movements.some(
+    (trans) => trans >= (amount * 10) / 100
+  );
+  if (amount > 0 && loanTerms) {
+    currentAccount.movements.push(amount / eurToUsd);
+    updateDisplayTransactions(currentAccount);
+    inputLoanAmount.value = "";
+    inputLoanAmount.blur();
+  }
+});
+
+/* Part 11: close account */
+btnClose.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (
+    currentAccount.username === inputCloseUsername.value &&
+    currentAccount.pin === +inputClosePin.value
+  ) {
+    const findAccountIndex = accounts.findIndex(
+      (acc) => acc.username === currentAccount.username
+    );
+    accounts.splice(findAccountIndex, 1);
+    containerApp.style.opacity = 0;
+    inputClosePin.value = inputCloseUsername.value = "";
+    inputClosePin.blur();
+    //inputCloseUsername.blur()
   }
 });
 /* Extra tasks */

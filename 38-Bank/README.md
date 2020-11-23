@@ -41,3 +41,7 @@ Tasks:
 10. Use request loan to add amount to account.
 
 11. Close account.
+
+12. Sort display in DOM
+
+13. Add date

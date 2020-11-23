@@ -10,6 +10,16 @@ const account1 = {
   movements: [200, 450, -400, 3000, -650, -130, 70, 1300],
   interestRate: 1.2, // %
   pin: 1111,
+  movementsDates: [
+    "2019-11-18T21:31:17.178Z",
+    "2019-12-23T07:42:02.383Z",
+    "2020-01-28T09:15:04.904Z",
+    "2020-04-01T10:17:24.185Z",
+    "2020-05-08T14:11:59.604Z",
+    "2020-05-27T17:01:17.194Z",
+    "2020-07-11T23:36:17.929Z",
+    "2020-07-12T10:51:36.790Z",
+  ],
 };
 
 const account2 = {
@@ -17,6 +27,16 @@ const account2 = {
   movements: [5000, 3400, -150, -790, -3210, -1000, 8500, -30],
   interestRate: 1.5,
   pin: 2222,
+  movementsDates: [
+    "2019-11-18T21:31:17.178Z",
+    "2019-12-23T07:42:02.383Z",
+    "2020-01-28T09:15:04.904Z",
+    "2020-04-01T10:17:24.185Z",
+    "2020-05-08T14:11:59.604Z",
+    "2020-05-27T17:01:17.194Z",
+    "2020-07-11T23:36:17.929Z",
+    "2020-07-12T10:51:36.790Z",
+  ],
 };
 
 const account3 = {
@@ -24,6 +44,16 @@ const account3 = {
   movements: [200, -200, 340, -300, -20, 50, 400, -460],
   interestRate: 0.7,
   pin: 3333,
+  movementsDates: [
+    "2019-11-18T21:31:17.178Z",
+    "2019-12-23T07:42:02.383Z",
+    "2020-01-28T09:15:04.904Z",
+    "2020-04-01T10:17:24.185Z",
+    "2020-05-08T14:11:59.604Z",
+    "2020-05-27T17:01:17.194Z",
+    "2020-07-11T23:36:17.929Z",
+    "2020-07-12T10:51:36.790Z",
+  ],
 };
 
 const account4 = {
@@ -31,6 +61,13 @@ const account4 = {
   movements: [430, 1000, 700, 50, 90],
   interestRate: 1,
   pin: 4444,
+  movementsDates: [
+    "2019-11-18T21:31:17.178Z",
+    "2019-12-23T07:42:02.383Z",
+    "2020-01-28T09:15:04.904Z",
+    "2020-04-01T10:17:24.185Z",
+    "2020-05-08T14:11:59.604Z",
+  ],
 };
 
 const account5 = {
@@ -38,6 +75,13 @@ const account5 = {
   movements: [-430, -1000, -700, -50, -90],
   interestRate: 0,
   pin: 5555,
+  movementsDates: [
+    "2019-11-18T21:31:17.178Z",
+    "2019-12-23T07:42:02.383Z",
+    "2020-01-28T09:15:04.904Z",
+    "2020-04-01T10:17:24.185Z",
+    "2020-05-08T14:11:59.604Z",
+  ],
 };
 
 const accounts = [account1, account2, account3, account4, account5];
@@ -101,9 +145,14 @@ const displayMov = function (mov) {
 /*  Part 1: Refactor ES6+, arrow functions, ternary conditionals*/
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 const eurToUsd = 1.19;
-const displayTransactionsDOM = (transactions) => {
+const displayTransactionsDOM = (transactions, sort = false) => {
   containerMovements.innerHTML = "";
-  transactions.forEach((transaction, i) => {
+  /* Part 12: Sort transaction DOM */
+  const trans = sort
+    ? transactions.slice().sort((a, b) => a - b)
+    : transactions;
+
+  trans.forEach((transaction, i) => {
     const type = transaction > 0 ? "deposit" : "withdrawal";
 
     const html = `
@@ -269,6 +318,10 @@ const updateDisplayTransactions = (currentAccount) => {
 let currentAccount;
 inputLoginPin.value = "1111";
 inputLoginUsername.value = "me";
+
+const now = new Date();
+const day = now.getDate();
+
 //Not ES6+
 /* btnLogin.addEventListener("click", (e) => {
   e.preventDefault();
@@ -364,6 +417,14 @@ btnClose.addEventListener("click", (e) => {
     //inputCloseUsername.blur()
   }
 });
+/* Part 12: sort displayDOM */
+let sorted = false;
+btnSort.addEventListener("click", (e) => {
+  e.preventDefault();
+  displayTransactionsDOM(currentAccount.movements, !sorted);
+  sorted = !sorted;
+});
+
 /* Extra tasks */
 /* add movements max and min functions and elements to the DOM */
 /* Add interest only to deposits more than 1$ */

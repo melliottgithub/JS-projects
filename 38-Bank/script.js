@@ -335,7 +335,7 @@ btnTransfer.addEventListener("click", (e) => {
 btnLoan.addEventListener("click", (e) => {
   e.preventDefault();
   //console.log(currentAccount);
-  const amount = +inputLoanAmount.value;
+  const amount = Math.round(inputLoanAmount.value);
   const loanTerms = currentAccount.movements.some(
     (trans) => trans >= (amount * 10) / 100
   );
